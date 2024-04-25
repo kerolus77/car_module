@@ -1,10 +1,9 @@
 package com.example.car_module.car;
 import jakarta.persistence.*;
-import jakarta.persistence.Id;
-import com.example.car_module.brand.brandEntity;
+import com.example.car_module.brand.BrandEntity;
 @Table(name = "sell_car")
 @Entity
-public class sellCarEntity extends carEntity{
+public class SellCarEntity extends CarEntity {
 
     public enum Status {
         SOLD,
@@ -16,11 +15,11 @@ public class sellCarEntity extends carEntity{
     private Status status = Status.AVAILABLE;
     private Double sellPrice;
 
-    public sellCarEntity() {
+    public SellCarEntity() {
         super();
     }
 
-    public sellCarEntity(String model, String licensePlate, String color, int year, String description, brandEntity brand, Double sellPrice, Status status) {
+    public SellCarEntity(String model, String licensePlate, String color, int year, String description, BrandEntity brand, Double sellPrice, Status status) {
         super(model, licensePlate, color, year, description, brand);
         this.sellPrice = sellPrice;
         this.status = status;
@@ -44,7 +43,7 @@ public class sellCarEntity extends carEntity{
 
     @Override
     public String toString() {
-        return "carEntity{" +
+        return "CarEntity{" +
                 "id=" + super.getId() +
                 ", model='" + super.getModel() + '\'' +
                 ", licensePlate='" + super.getLicensePlate() + '\'' +

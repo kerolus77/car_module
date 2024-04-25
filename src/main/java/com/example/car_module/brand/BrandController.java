@@ -15,35 +15,35 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/brand")
-public class brandController {
+public class BrandController {
 
-    private final brandService service;
+    private final BrandService service;
 
     @Autowired
-    public brandController(brandService service) {
+    public BrandController(BrandService service) {
         this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<brandEntity>> getAllBrands() {
+    public ResponseEntity<List<BrandEntity>> getAllBrands() {
         return new ResponseEntity<>(service.getAllBrands(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<brandEntity> getBrandById(@Valid @PathVariable Long id) {
+    public ResponseEntity<BrandEntity> getBrandById(@Valid @PathVariable Long id) {
         return service.getBrandById(id)
                 .map(brand -> new ResponseEntity<>(brand, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<brandEntity> createBrand(@Valid @RequestBody brandEntity brand) {
+    public ResponseEntity<BrandEntity> createBrand(@Valid @RequestBody BrandEntity brand) {
         return new ResponseEntity<>(service.createBrand(brand), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<brandEntity> updateBrand(@PathVariable Long id, @Valid @RequestBody BrandUpdateDTO brandUpdateDTO) {
-        brandEntity existingBrand = service.getBrandById(id)
+    public ResponseEntity<BrandEntity> updateBrand(@PathVariable Long id, @Valid @RequestBody BrandUpdateDTO brandUpdateDTO) {
+        BrandEntity existingBrand = service.getBrandById(id)
                 .orElseThrow(() -> new RuntimeException("Brand not found with id: " + id));
 
         if (brandUpdateDTO.getName() != null) {

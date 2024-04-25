@@ -6,10 +6,10 @@ import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "brand")
-public class brandEntity {
+public class BrandEntity {
+    @SequenceGenerator(name = "brand_sequence", sequenceName = "brand_sequence", allocationSize = 1)
+    @GeneratedValue(generator = "brand_sequence")
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @NotNull(message = "Name is mandatory")
@@ -20,7 +20,7 @@ public class brandEntity {
     @Size(min = 2, max = 50, message = "Country must be between 2 and 50 characters")
     private String country;
 
-    public brandEntity() {
+    public BrandEntity() {
 
     }
 
@@ -40,7 +40,7 @@ public class brandEntity {
         return country;
     }
 
-    public brandEntity(String name, String country) {
+    public BrandEntity(String name, String country) {
         this.name = name;
         this.country = country;
     }

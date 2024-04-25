@@ -1,9 +1,9 @@
 package com.example.car_module.car;
-import com.example.car_module.brand.brandEntity;
+import com.example.car_module.brand.BrandEntity;
 import jakarta.persistence.*;
 @Table(name = "rent_car")
 @Entity
-public class rentCarEntity extends carEntity{
+public class RentCarEntity extends CarEntity {
 
     public enum Status {
         RENTED,
@@ -14,11 +14,11 @@ public class rentCarEntity extends carEntity{
     private Status status = Status.AVAILABLE;
     private Double rentPrice;
 
-    public rentCarEntity() {
+    public RentCarEntity() {
         super();
     }
 
-    public rentCarEntity(String model, String licensePlate, String color, int year, String description, brandEntity brand, Double rentPrice, Status status) {
+    public RentCarEntity(String model, String licensePlate, String color, int year, String description, BrandEntity brand, Double rentPrice, Status status) {
         super(model, licensePlate, color, year, description, brand);
         this.rentPrice = rentPrice;
         this.status = status;
@@ -42,7 +42,7 @@ public class rentCarEntity extends carEntity{
 
     @Override
     public String toString() {
-        return "carEntity{" +
+        return "CarEntity{" +
                 "id=" + super.getId() +
                 ", model='" + super.getModel() + '\'' +
                 ", licensePlate='" + super.getLicensePlate() + '\'' +

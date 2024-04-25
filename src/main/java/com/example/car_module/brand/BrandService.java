@@ -7,28 +7,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class brandService {
+public class BrandService {
 
-    private final brandRepository repository;
+    private final BrandRepository repository;
 
     @Autowired
-    public brandService(brandRepository repository) {
+    public BrandService(BrandRepository repository) {
         this.repository = repository;
     }
 
-    public List<brandEntity> getAllBrands() {
+    public List<BrandEntity> getAllBrands() {
         return repository.findAll();
     }
 
-    public Optional<brandEntity> getBrandById(Long id) {
+    public Optional<BrandEntity> getBrandById(Long id) {
         return repository.findById(id);
     }
 
-    public brandEntity createBrand(brandEntity brand) {
+    public BrandEntity createBrand(BrandEntity brand) {
         return repository.save(brand);
     }
 
-    public brandEntity updateBrand(brandEntity brand) {
+    public BrandEntity updateBrand(BrandEntity brand) {
         return repository.save(brand);
     }
 

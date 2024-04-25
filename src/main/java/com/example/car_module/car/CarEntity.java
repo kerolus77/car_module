@@ -1,9 +1,10 @@
 package com.example.car_module.car;
 
-import com.example.car_module.brand.brandEntity;
+import com.example.car_module.brand.BrandEntity;
 import jakarta.persistence.*;
+import com.example.car_module.User;
 @MappedSuperclass
-public class carEntity {
+public class CarEntity {
 //    A Long id field that is annotated with @Id
 
     @SequenceGenerator(name = "car_sequence", sequenceName = "car_sequence", allocationSize = 1)
@@ -19,12 +20,16 @@ public class carEntity {
 
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
-    private brandEntity brand;
+    private BrandEntity brand;
 
-    public carEntity() {
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    public CarEntity() {
     }
 
-    public carEntity(String model, String licensePlate, String color, int year, String description, brandEntity brand) {
+    public CarEntity(String model, String licensePlate, String color, int year, String description, BrandEntity brand, User user) {
         this.model = model;
         this.licensePlate = licensePlate;
         this.color = color;
@@ -73,11 +78,11 @@ public class carEntity {
         this.description = description;
     }
 
-    public brandEntity getBrand() {
+    public BrandEntity getBrand() {
         return brand;
     }
 
-    public void setBrand(brandEntity brand) {
+    public void setBrand(BrandEntity brand) {
         this.brand = brand;
     }
 
@@ -87,5 +92,13 @@ public class carEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
