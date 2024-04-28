@@ -1,8 +1,14 @@
 package com.example.car_module.car;
 
-import com.example.car_module.brand.BrandEntity;
-import jakarta.persistence.*;
 import com.example.car_module.User;
+import com.example.car_module.brand.BrandEntity;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.SequenceGenerator;
 @MappedSuperclass
 public class CarEntity {
 //    A Long id field that is annotated with @Id
@@ -24,7 +30,7 @@ public class CarEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    protected User user;
 
     public CarEntity() {
     }
@@ -36,6 +42,7 @@ public class CarEntity {
         this.year = year;
         this.description = description;
         this.brand = brand;
+        this.user = user;
     }
 
     public String getModel() {

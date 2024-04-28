@@ -1,6 +1,12 @@
 package com.example.car_module.car;
-import jakarta.persistence.*;
+import com.example.car_module.User;
 import com.example.car_module.brand.BrandEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 @Table(name = "sell_car")
 @Entity
 public class SellCarEntity extends CarEntity {
@@ -19,8 +25,8 @@ public class SellCarEntity extends CarEntity {
         super();
     }
 
-    public SellCarEntity(String model, String licensePlate, String color, int year, String description, BrandEntity brand, Double sellPrice, Status status) {
-        super(model, licensePlate, color, year, description, brand);
+    public SellCarEntity(String model, String licensePlate, String color, int year, String description, BrandEntity brand, Double sellPrice, Status status, User user) {
+        super(model, licensePlate, color, year, description, brand, user);
         this.sellPrice = sellPrice;
         this.status = status;
     }
@@ -50,7 +56,7 @@ public class SellCarEntity extends CarEntity {
                 ", color='" + super.getColor() + '\'' +
                 ", year=" + super.getYear() +
                 ", description='" + super.getDescription() + '\'' +
-                ", brand=" + super.getBrand().getName() +
+                ", brand=" + super.getBrand() +
                 ", status=" + status +
                 ", sellPrice=" + sellPrice +
                 '}';
