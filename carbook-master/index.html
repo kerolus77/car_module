@@ -338,49 +338,48 @@
 
   <!-- <script src="/apiRequests/home.js"> </script> -->
   <script>
-$(document).ready(function(){
-    $.ajax({
-        url: 'http://localhost:8086/api/cars/getAllCars',
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            // Handle the data returned from the server
-            console.log(data);
-            var carsContainer = $('.carousel-car'); // Select the container for car cards
-            var carTemplate = `
-                <div class="item">
-                    <div class="car-wrap rounded ftco-animate">
-                        <div class="img rounded d-flex align-items-end" style="background-image: url({{imageUrl}});">
-                        </div>
-                        <div class="text">
-                            <h2 class="mb-0"><a href="#">{{carName}}</a></h2>
-                            <div class="d-flex mb-3">
-                                <span class="cat">{{brand}}</span>
-                                <p class="price ml-auto">${{price}} <span>/day</span></p>
+    $(document).ready(function(){
+        $.ajax({
+            url: 'http://localhost:8086/api/cars/getAllCars',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Handle the data returned from the server
+                console.log(data);
+                var carsContainer = $('.carousel-car'); // Select the container for car cards
+                var carTemplate = `
+                    <div class="item">
+                        <div class="car-wrap rounded ftco-animate">
+                            <div class="img rounded d-flex align-items-end" style="background-image: url({{imageUrl}});">
                             </div>
-                            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                            <div class="text">
+                                <h2 class="mb-0"><a href="#">{{carName}}</a></h2>
+                                <div class="d-flex mb-3">
+                                    <span class="cat">{{brand}}</span>
+                                    <p class="price ml-auto">{{price}} <span>/day</span></p>
+                                </div>
+                                <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-            // Loop through each car data and generate HTML for car card
-            data.forEach(function(car) {
-                var carHtml = carTemplate
-                    .replace('{{imageUrl}}', car.imageUrl)
-                    .replace('{{carName}}', car.carName)
-                    .replace('{{brand}}', car.brand)
-                    .replace('{{price}}', car.price);
-                carsContainer.append(carHtml); // Append the generated HTML to the container
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-        }
+                `;
+                // Loop through each car data and generate HTML for car card
+                data.forEach(function(car) {
+                    var carHtml = carTemplate
+                        .replace('{{imageUrl}}', car.imageUrl)
+                        .replace('{{carName}}', car.model)
+                        .replace('{{brand}}', car.brand.name) // Assuming the brand is an object with a name property
+                        .replace('{{price}}', car.rentPrice);
+                    carsContainer.append(carHtml); // Append the generated HTML to the container
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
     });
-});
-
-
-</script>
+    </script>
+    
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>

@@ -1,6 +1,5 @@
 package com.example.car_module.car;
 
-import com.example.car_module.User;
 import com.example.car_module.brand.BrandEntity;
 
 import jakarta.persistence.GeneratedValue;
@@ -17,10 +16,9 @@ public class CarEntity {
     @GeneratedValue(generator = "car_sequence")
     @Id
     private Long id;
-
+    private String image;
     private String model;
     private String licensePlate;
-    private String color;
     private int year;
     private String description;
 
@@ -28,21 +26,29 @@ public class CarEntity {
     @JoinColumn(name = "brand_id", nullable = false)
     private BrandEntity brand;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    protected User user;
-
-    public CarEntity() {
-    }
-
-    public CarEntity(String model, String licensePlate, String color, int year, String description, BrandEntity brand, User user) {
+    public CarEntity(String image, String model, String licensePlate, int year, String description, BrandEntity brand) {
+        this.image = image;
         this.model = model;
         this.licensePlate = licensePlate;
-        this.color = color;
         this.year = year;
         this.description = description;
         this.brand = brand;
-        this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getModel() {
@@ -59,14 +65,6 @@ public class CarEntity {
 
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public int getYear() {
@@ -91,21 +89,5 @@ public class CarEntity {
 
     public void setBrand(BrandEntity brand) {
         this.brand = brand;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
