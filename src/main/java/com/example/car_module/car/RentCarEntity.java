@@ -1,4 +1,5 @@
 package com.example.car_module.car;
+import com.example.car_module.User;
 import com.example.car_module.brand.BrandEntity;
 import jakarta.persistence.*;
 @Table(name = "rent_car")
@@ -18,8 +19,8 @@ public class RentCarEntity extends CarEntity {
         super();
     }
 
-    public RentCarEntity(String model, String licensePlate, String color, int year, String description, BrandEntity brand, Double rentPrice, Status status) {
-        super(model, licensePlate, color, year, description, brand);
+    public RentCarEntity(String model, String licensePlate, String color, int year, String description, BrandEntity brand, Double rentPrice, Status status, User user) {
+        super(model, licensePlate, color, year, description, brand, user);
         this.rentPrice = rentPrice;
         this.status = status;
     }
@@ -49,7 +50,7 @@ public class RentCarEntity extends CarEntity {
                 ", color='" + super.getColor() + '\'' +
                 ", year=" + super.getYear() +
                 ", description='" + super.getDescription() + '\'' +
-                ", brand=" + super.getBrand().getName() +
+                ", brand=" + super.getBrand() +
                 ", status=" + status +
                 ", rentPrice=" + rentPrice +
                 '}';

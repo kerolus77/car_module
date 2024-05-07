@@ -3,7 +3,7 @@ package com.example.car_module;
 import jakarta.persistence.*;
 
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
 
