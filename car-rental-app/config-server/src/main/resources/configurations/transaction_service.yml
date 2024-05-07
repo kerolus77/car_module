@@ -1,0 +1,42 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+rate:
+  limit: 30
+  limit_duration: 60
+
+server:
+  port: 8085
+spring:
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET, POST, PUT, DELETE
+    allowed-headers: "*"
+    allow-credentials: true
+
+  application:
+    name: transaction_service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:3000/transdb
+    username: postgres
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+application:
+  config:
+    user_service-url: http://localhost:8080/api/transactions
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0

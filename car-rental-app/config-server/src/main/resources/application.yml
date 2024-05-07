@@ -1,0 +1,18 @@
+server:
+  port: 8888
+
+spring:
+  profiles:
+    active: native
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/configurations
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET, POST, PUT, DELETE
+    allowed-headers: "*"
+    allow-credentials: true

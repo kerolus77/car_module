@@ -1,0 +1,22 @@
+#spring.application.name=car_service
+#spring.jpa.database=postgresql
+#spring.jpa.show-sql=true
+#spring.jpa.hibernate.ddl-auto=update
+#spring.datasource.url=jdbc:postgresql://localhost:3000/cardb
+#spring.datasource.username=postgres
+#spring.datasource.password=root
+#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+#spring.jpa.properties.hibernate.format_sql=true
+#server.port=8086
+#
+#eureka.instance.hostname=localhost
+#eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+#spring.config.import=optional:configserver:http://localhost:8888
+#
+#
+
+spring:
+  application:
+    name: car_service
+  config:
+    import: optional:configserver:http://localhost:8888
