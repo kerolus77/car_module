@@ -123,19 +123,5 @@ public class RentCarEntity  {
         this.rentPrice = rentPrice;
     }
 
-    public String getCarImage() {
-        return carImage;
-    }
 
-    public void setCarImage(String carImage) {
-        this.carImage = carImage;
-    }
-
-    public BrandEntity getBrand() {
-        return brand;
-    }
-
-    public void setBrand(BrandEntity brand) {
-        this.brand = brand;
-    }
 }
