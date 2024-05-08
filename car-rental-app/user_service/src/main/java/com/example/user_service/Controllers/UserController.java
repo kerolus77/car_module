@@ -89,6 +89,11 @@ public class UserController {
         }
     }
 
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
     @PutMapping("/updateProfile/{id}")
     public String updateProfile(@PathVariable Long id, @RequestBody User request) {
         try {

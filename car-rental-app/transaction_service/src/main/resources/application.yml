@@ -21,3 +21,7 @@ spring:
     name: transaction_service
   config:
     import: optional:configserver:http://localhost:8888
+
+application:
+  config:
+    users-url: http://localhost:8080/api/users

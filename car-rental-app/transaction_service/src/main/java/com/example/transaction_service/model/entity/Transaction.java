@@ -25,8 +25,8 @@ public class Transaction {
         HOLD
     }
 
-    private Integer clientId;
-    private Integer carId;
+    private Long clientId;
+    private Long carId;
     private Date dateTime;
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -38,7 +38,7 @@ public class Transaction {
     @Transient
     private Integer rentalDuration;
 
-    public Transaction(Integer rentalDuration, Date endDate, Date startDate, String driverLicense, Status status, Double totalPrice, Date dateTime, Integer carId, Integer clientId) {
+    public Transaction(Integer rentalDuration, Date endDate, Date startDate, String driverLicense, Status status, Double totalPrice, Date dateTime, Long carId, Long clientId) {
         this.rentalDuration = rentalDuration;
         this.endDate = endDate;
         this.startDate = startDate;
@@ -61,19 +61,19 @@ public class Transaction {
         this.id = id;
     }
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(Integer clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
-    public Integer getCarId() {
+    public Long getCarId() {
         return carId;
     }
 
-    public void setCarId(Integer carId) {
+    public void setCarId(Long carId) {
         this.carId = carId;
     }
 

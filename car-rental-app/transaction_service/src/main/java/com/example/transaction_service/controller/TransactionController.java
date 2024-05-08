@@ -1,5 +1,6 @@
 package com.example.transaction_service.controller;
 import com.example.transaction_service.dto.TransactionRequest;
+import com.example.transaction_service.model.FullTransactionResponse;
 import com.example.transaction_service.model.entity.Transaction;
 import com.example.transaction_service.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,12 @@ private TransactionService transactionService;
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
+
+    @GetMapping("/getAllTransactionsWithClients")
+    public List<FullTransactionResponse> getAllTransactionsWithClients() {
+        return transactionService.getAllTransactionsWithClients();
+    }
+
 
     @GetMapping("/getAllTransactions/{clientId}")
     public List<Transaction> getAllTransactionsForClient(@PathVariable("clientId") Integer clientId) {

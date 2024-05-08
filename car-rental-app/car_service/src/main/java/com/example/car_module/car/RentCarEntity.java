@@ -99,6 +99,22 @@ public class RentCarEntity  {
         this.status = status;
     }
 
+    public String getCarImage() {
+        return carImage;
+    }
+
+    public void setCarImage(String carImage) {
+        this.carImage = carImage;
+    }
+
+    public BrandEntity getBrand() {
+        return brand;
+    }
+
+    public void setBrand(BrandEntity brand) {
+        this.brand = brand;
+    }
+
     public Double getRentPrice() {
         return rentPrice;
     }

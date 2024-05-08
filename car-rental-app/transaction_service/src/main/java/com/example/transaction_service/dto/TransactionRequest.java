@@ -8,8 +8,8 @@ import java.util.Date;
 @Component
 public class TransactionRequest {
     private String driverLicense;
-    private Integer clientId;
-    private Integer carId;
+    private Long clientId;
+    private Long carId;
     private Date dateTime;
     private Payment.PaymentMethod paymentMethod;
     private Date paymentDate;
@@ -76,19 +76,19 @@ public class TransactionRequest {
         this.dateTime = dateTime;
     }
 
-    public Integer getCarId() {
+    public Long getCarId() {
         return carId;
     }
 
-    public void setCarId(Integer carId) {
+    public void setCarId(Long carId) {
         this.carId = carId;
     }
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(Integer clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 }

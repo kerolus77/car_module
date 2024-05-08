@@ -1,5 +1,10 @@
 package com.example.transaction_service.service;
 
+import com.example.transaction_service.client.CarClient;
+import com.example.transaction_service.client.UserClient;
+import com.example.transaction_service.model.Car;
+import com.example.transaction_service.model.FullTransactionResponse;
+import com.example.transaction_service.model.User;
 import com.example.transaction_service.dto.TransactionRequest;
 import com.example.transaction_service.model.entity.Transaction;
 import com.example.transaction_service.model.repository.TransactionRepository;
@@ -11,14 +16,16 @@ import java.util.List;
 
 @Service
 public class TransactionService {
+    private final CarClient carClient;
     private PaymentService paymentService;
-
+    private UserClient userClient;
     private TransactionRepository transactionRepository;
     @Autowired
-    public TransactionService(PaymentService paymentService, TransactionRepository transactionRepository) {
+    public TransactionService(PaymentService paymentService, TransactionRepository transactionRepository, UserClient userClient, CarClient carClient) {
         this.paymentService = paymentService;
         this.transactionRepository = transactionRepository;
-
+        this.userClient = userClient;
+        this.carClient = carClient;
     }
     public Transaction getTransactionById(Long transactionId) {
         return transactionRepository.findById(transactionId)
@@ -42,7 +49,9 @@ public class TransactionService {
         paymentService.createPayment(transactionRequest,transaction);
 
     }
+
     public List<Transaction> getAllTransactions() {
+
         return transactionRepository.findAll();
     }
 
@@ -62,6 +71,29 @@ public class TransactionService {
         Date endDate = transaction.getEndDate();
         long diffInMillies = endDate.getTime() - currentDate.getTime();
         return diffInMillies / (1000 * 60 * 60 * 24);
+    }
+
+    public List<FullTransactionResponse> getAllTransactionsWithClients() {
+    var transactions = transactionRepository.findAll();
+    return transactions.stream().map(transaction -> {
+//        use the clientId to get the client by id
+        User user = userClient.getUserById(transaction.getClientId());
+        Car car = carClient.getCarById(transaction.getCarId());
+        return new FullTransactionResponse(
+                transaction.getId(),
+                transaction.getClientId(),
+                transaction.getCarId(),
+                transaction.getDateTime(),
+                transaction.getStatus(),
+                transaction.getTotalPrice(),
+                transaction.getDriverLicense(),
+                transaction.getStartDate(),
+                transaction.getEndDate(),
+                calculateRentalDuration(transaction),
+                user,
+                car
+        );
+    }).toList();
     }
 }
 

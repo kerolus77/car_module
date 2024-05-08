@@ -100,4 +100,9 @@ public class UserService {
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(retUser);
     }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    }
 }
