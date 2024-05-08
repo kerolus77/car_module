@@ -167,6 +167,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     var bookedCar = JSON.parse(sessionStorage.getItem('bookedCar'));
     var user = JSON.parse(sessionStorage.getItem('user'));
 
+    // Function to format date
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
+        var day = date.getDate().toString().padStart(2, '0'); // Add leading zero if needed
+        return year + '-' + month + '-' + day;
+    }
+
     console.log(bookedCar);
       $('.appointment-form').submit(function(event) {
           // Prevent default form submission
@@ -178,6 +186,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
           var paymentMethod = $('#payment-method').val();
         // Format the date and time to match the desired format: "YYYY-MM-DDTHH:MM:SS"
 
+        // Get current date and time
+        var now = new Date();
+        var dateTime = formatDate(now);
+
+        console.log(dateTime);
+
           // Create data object to send via AJAX
           var data = {
               startDate: startDate,
@@ -185,7 +199,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
               paymentMethod: paymentMethod,
               totalPrice:bookedCar.rentPrice,
               carId:bookedCar.id,
-              clientId:user.id
+              clientId:user.id,
+              dateTime: dateTime
+
           };
           console.log(data);
           // Send AJAX request
@@ -198,7 +214,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                   // Handle success response
                   console.log('Transaction saved successfully:', response);
                   // Redirect to a success page or display a success message
-                  window.location.href = 'success.html';
+                  window.location.href = 'index.html';
               },
               error: function(xhr, status, error) {
                   // Handle error response

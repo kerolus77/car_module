@@ -22,7 +22,7 @@ spring:
     name: transaction_service
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:3000/transdb
+    url: jdbc:postgresql://localhost:5432/transdb
     username: postgres
     password: root
   jpa:

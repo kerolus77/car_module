@@ -43,6 +43,7 @@ public class TransactionService {
         transaction.setStartDate(transactionRequest.getStartDate());
         transaction.setEndDate(transactionRequest.getEndDate());
         transaction.setDriverLicense(transactionRequest.getDriverLicense());
+        transaction.setDateTime(transactionRequest.getDateTime());
 
         // Save the transaction entity using the repository
         transactionRepository.save(transaction);

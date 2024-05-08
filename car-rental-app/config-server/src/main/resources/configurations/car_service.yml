@@ -19,7 +19,7 @@ spring:
     name: car_service
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:3000/cardb
+    url: jdbc:postgresql://localhost:5432/cardb
     username: postgres
     password: root
   jpa:

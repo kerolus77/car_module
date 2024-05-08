@@ -549,11 +549,20 @@ display them correctly
 									rightDetailsList.appendChild(listItem);
 								}
 							} else {
-								let listItem = createListItem(
-									carKey.replace(/_/g, ' '),
-									car[carKey]
-								);
-								rightDetailsList.appendChild(listItem);
+								if (carKey === 'carImage') {
+									// If carKey is 'carImage', create an image element and set its source to the value
+									let image = document.createElement('img');
+									image.src = car[carKey];
+									// Append the image to the rightDetailsList
+									rightDetailsList.appendChild(image);
+								} else {
+									// For other keys, create list items as before
+									let listItem = createListItem(
+										carKey.replace(/_/g, ' '),
+										car[carKey]
+									);
+									rightDetailsList.appendChild(listItem);
+								}
 							}
 						}
 					}

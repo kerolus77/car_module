@@ -68,23 +68,13 @@
 
 		<section class="ftco-section bg-light">
     	<div class="container">
-    		<div class="row">
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="carousel-car owl-carousel" style="display: flex;">
 
-    		</div>
+                    </div>
+                </div>
+            </div>
 
     	</div>
     </section>
@@ -175,6 +165,88 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+
+      <script>
+          document.addEventListener('DOMContentLoaded', function() {
+              var xhr = new XMLHttpRequest();
+              xhr.open('GET', 'http://localhost:8086/api/cars/getAllCars');
+              xhr.responseType = 'json';
+              xhr.onload = function() {
+                  if (xhr.status === 200) {
+                      var cars = xhr.response;
+                      var carsContainer = document.querySelector('.carousel-car');
+                      var carTemplate = `
+                          <div class="item col-md-4">
+                              <div class="car-wrap rounded">
+                                  <img src="{{imageUrl}}" class="img rounded d-flex align-items-end" alt="Car Image">
+                                  <div class="text" style="color: black;">
+                                      <h2 class="mb-0"><a href="#">{{model}}</a></h2>
+                                      <div class="d-flex mb-3">
+                                          <span class="cat">{{brand}}</span>
+                                          <p class="price ml-auto">{{rentPrice}} <span>/day</span></p>
+                                      </div>
+                                      <p class="d-flex mb-0 d-block">
+                                          <a href="#" class="btn btn-primary py-2 mr-1 book-now" data-id="{{id}}">Book now</a>
+                                          <a href="#" class="btn btn-secondary py-2 ml-1">Details</a>
+                                      </p>
+                                  </div>
+                              </div>
+                          </div>
+                      `;
+
+                      // Clear previous content
+                      carsContainer.innerHTML = '';
+
+                      // Loop through each car and generate HTML for carousel item
+                      cars.forEach(function(car) {
+                          var carHtml = carTemplate
+                              .replace('{{imageUrl}}', car.carImage)
+                              .replace('{{model}}', car.model)
+                              .replace('{{brand}}', car.brand.name)
+                              .replace('{{rentPrice}}', car.rentPrice)
+                              .replace('{{id}}', car.id); // Add car ID to data-id attribute
+                          carsContainer.insertAdjacentHTML('beforeend', carHtml);
+                      });
+
+                      // Add event listener to "Book now" buttons
+                      var bookNowButtons = document.querySelectorAll('.book-now');
+                      bookNowButtons.forEach(function(button) {
+                          button.addEventListener('click', function(event) {
+                              event.preventDefault();
+                              // Retrieve the car ID from data-id attribute
+                              var carId = button.getAttribute('data-id');
+                              // Send AJAX request to another page with car ID
+                              var xhr = new XMLHttpRequest();
+                              xhr.open('GET', `http://localhost:8086/api/cars/${carId}`);
+                              xhr.responseType = 'json';
+                              xhr.onload = function() {
+                                  if (xhr.status === 200) {
+                                    console.log(xhr.response);
+                                    sessionStorage.setItem('bookedCar', JSON.stringify(xhr.response));
+
+                                      // Redirect to the destination page
+                                      window.location.href = 'booking.html';
+                                  } else {
+                                      console.error('Request failed with status:', xhr.status);
+                                  }
+                              };
+                              xhr.onerror = function() {
+                                  console.error('Request failed');
+                              };
+                              xhr.send(JSON.stringify({ carId: carId })); // Include car ID in the request payload
+                          });
+                      });
+                  } else {
+                      console.error('Request failed with status:', xhr.status);
+                  }
+              };
+              xhr.onerror = function() {
+                  console.error('Request failed');
+              };
+              xhr.send();
+          });
+
+      </script>
     
   </body>
 </html>
