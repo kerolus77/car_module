@@ -457,7 +457,13 @@ display them correctly
 				// Create container to hold both cards
 				let container = document.createElement('div');
 				container.className = 'd-flex flex-wrap justify-content-start'; // Bootstrap flex classes to display cards in one row
-
+				// add heading in the container and add border to it
+				let heading = document.createElement('h2');
+				heading.textContent = `Transaction ID: ${transaction.id}`;
+				heading.style.borderBottom = '1px solid #000';
+				heading.style.width = '100%';
+				heading.style.paddingBottom = '10px';
+				container.appendChild(heading);
 				// Left card for transaction and user details
 				let leftCard = document.createElement('div');
 				leftCard.className = 'card m-2 flex-grow-1'; // Add Bootstrap card and margin classes
@@ -567,7 +573,11 @@ display them correctly
 				let detailLabel = document.createElement('strong');
 				detailLabel.textContent = label;
 				let detailValue = document.createElement('span');
-				if (label.includes('Date') || label.includes('DateTime')) {
+				if (
+					label.includes('Date') ||
+					label.includes('DateTime') ||
+					label.includes('Time')
+				) {
 					detailValue.textContent = new Date(value).toLocaleString();
 				} else {
 					detailValue.textContent = value;
