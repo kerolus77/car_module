@@ -77,20 +77,14 @@
                         <label for="end-date">End Date</label>
                         <input type="date" id="end-date" name="end-date" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label for="start-time">Start Time</label>
-                        <input type="time" id="start-time" name="start-time" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="driver-license-image">Driver's License Image</label>
-                        <input type="file" id="driver-license-image" name="driver-license-image" class="form-control-file" required>
-                    </div>
+
+
                     <div class="form-group">
                         <label for="payment-method">Payment Method</label>
                         <select id="payment-method" name="payment-method" class="form-control" required>
                             <option value="" disabled selected>Select Payment Method</option>
-                            <option value="visa">Visa</option>
-                            <option value="cash">Cash</option>
+                            <option value="VISA">Visa</option>
+                            <option value="CASH">Cash</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -168,6 +162,55 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+<script>
+  $(document).ready(function() {
+    var bookedCar = JSON.parse(sessionStorage.getItem('bookedCar'));
+    var user = JSON.parse(sessionStorage.getItem('user'));
+
+    console.log(bookedCar);
+      $('.appointment-form').submit(function(event) {
+          // Prevent default form submission
+          event.preventDefault();
+  
+          // Retrieve form data
+          var startDate = $('#start-date').val();
+          var endDate = $('#end-date').val();
+          var paymentMethod = $('#payment-method').val();
+        // Format the date and time to match the desired format: "YYYY-MM-DDTHH:MM:SS"
+
+          // Create data object to send via AJAX
+          var data = {
+              startDate: startDate,
+              endDate: endDate,
+              paymentMethod: paymentMethod,
+              totalPrice:bookedCar.rentPrice,
+              carId:bookedCar.id,
+              clientId:user.id
+          };
+          console.log(data);
+          // Send AJAX request
+          $.ajax({
+              url: 'http://localhost:8085/api/transactions/saveTransaction',
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify(data),
+              success: function(response) {
+                  // Handle success response
+                  console.log('Transaction saved successfully:', response);
+                  // Redirect to a success page or display a success message
+                  window.location.href = 'success.html';
+              },
+              error: function(xhr, status, error) {
+                  // Handle error response
+                  console.error('Error saving transaction:', error);
+                  // Display an error message to the user
+                  alert('Failed to save transaction. Please try again later.');
+              }
+          });
+      });
+  });
+  </script>
+  
 <script src="./js/auth.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>
