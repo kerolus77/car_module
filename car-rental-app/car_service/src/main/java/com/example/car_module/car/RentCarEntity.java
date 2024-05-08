@@ -1,8 +1,7 @@
 package com.example.car_module.car;
 import com.example.car_module.brand.BrandEntity;
 import jakarta.persistence.*;
-
-import java.awt.*;
+import jakarta.validation.constraints.Size;
 
 @Table(name = "rent_car")
 @Entity
@@ -18,7 +17,8 @@ public class RentCarEntity  {
             generator = "RentCar_sequence"
     )
     private Long id;
-    private TextArea carImage;
+    @Size(max = 200000000) // Example: Limiting to 255 characters
+    private String carImage;
     private String model;
     private String licensePlate;
     private int year;
@@ -36,7 +36,10 @@ public class RentCarEntity  {
     @JoinColumn(name = "brand_id", nullable = false)
     private BrandEntity brand;
 
-    public RentCarEntity( String licensePlate, BrandEntity brand, Double rentPrice, int year, String description, Status status, String model,TextArea carImage) {
+    public RentCarEntity() {
+    }
+
+    public RentCarEntity(String licensePlate, BrandEntity brand, Double rentPrice, int year, String description, Status status, String model, String carImage) {
         this.licensePlate = licensePlate;
         this.brand = brand;
         this.rentPrice = rentPrice;

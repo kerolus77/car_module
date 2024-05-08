@@ -1,9 +1,11 @@
 package com.example.car_module.car;
 
-import java.awt.*;
+import jakarta.validation.constraints.Size;
 
 public class RentCarRequest {
-    private TextArea carImage;
+    @Size(max = 200000000) // Example: Limiting to 255 characters
+    private String textField;
+    private String carImage;
     private String model;
     private String licensePlate;
     private String color;
@@ -27,11 +29,11 @@ public class RentCarRequest {
         return licensePlate;
     }
 
-    public TextArea getCarImage() {
+    public String getCarImage() {
         return carImage;
     }
 
-    public void setCarImage(TextArea carImage) {
+    public void setCarImage(String carImage) {
         this.carImage = carImage;
     }
 
