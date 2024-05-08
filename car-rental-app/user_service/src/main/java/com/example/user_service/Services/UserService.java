@@ -63,26 +63,18 @@ public class UserService {
         }
     }
 
-//    private boolean isValidUser(User user, String password) {
-//        return passwordEncoder.matches(password, user.getPassword());
-//    }
 
     public void register(User user) {
-        Set <ConstraintViolation<User>> violations = validator.validate(user);
-
-        if (!violations.isEmpty()) {
-            // If there are validation errors, throw an exception or handle them accordingly
-            throw new ConstraintViolationException(violations);
-        }
-
+        // Perform any necessary validation here
         if (userRepository.findByEmail(user.getEmail()) != null) {
             throw new RuntimeException("Email already exists");
         }
+        if (userRepository.findByPhone(user.getPhone()) != null) {
+            throw new RuntimeException("phone already exists");
+        }
 
+        // If validation passes, save the user
         user.setUserRole(User.UserRole.CLIENT);
-        user.setLocked(true);
-
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -101,9 +93,8 @@ public class UserService {
             retUser.setPassword(user.getPassword());
         }
 
-        if (user.getPersonalPhoto() != null && !user.getPersonalPhoto().isEmpty()) {
-            retUser.setPersonalPhoto(user.getPersonalPhoto());
-        }
+
+
 
 
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -1,7 +1,9 @@
 package com.example.car_module.car;
 
+import java.awt.*;
+
 public class RentCarRequest {
-    private String image;
+    private TextArea carImage;
     private String model;
     private String licensePlate;
     private String color;
@@ -23,6 +25,14 @@ public class RentCarRequest {
 
     public String getLicensePlate() {
         return licensePlate;
+    }
+
+    public TextArea getCarImage() {
+        return carImage;
+    }
+
+    public void setCarImage(TextArea carImage) {
+        this.carImage = carImage;
     }
 
     public void setLicensePlate(String licensePlate) {
@@ -85,11 +95,4 @@ public class RentCarRequest {
         this.userId = userId;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }

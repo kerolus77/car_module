@@ -26,24 +26,8 @@ public class AdminController {
         return AdminService.getUsers();
     }
 
-    @PostMapping("/activateUser")
-    public ResponseEntity<String> activateUser(@RequestParam Long userId) {
-        try {
-            AdminService.activateUser(userId);
-            return ResponseEntity.ok("User activated successfully!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to activate user: " + e.getMessage());
-        }
-    }
-    @PostMapping("/deactivateUser")
-    public ResponseEntity<String> deactivateUser(@RequestParam Long userId) {
-        try {
-            AdminService.deactivateUser(userId);
-            return ResponseEntity.ok("User deactivated successfully!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to activate user: " + e.getMessage());
-        }
-    }
+
+
 
     @PostMapping("/createAdmin")
     public String createAdmin(@RequestBody User request) {

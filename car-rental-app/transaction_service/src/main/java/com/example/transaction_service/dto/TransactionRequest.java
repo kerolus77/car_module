@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Component
 public class TransactionRequest {
-
+    private String driverLicense;
     private Integer clientId;
     private Integer carId;
     private Date dateTime;
@@ -20,36 +20,12 @@ public class TransactionRequest {
     // Getters and setters for all fields
 
 
-    public Integer getClientId() {
-        return clientId;
+    public String getDriverLicense() {
+        return driverLicense;
     }
 
-    public void setClientId(Integer clientId) {
-        this.clientId = clientId;
-    }
-
-    public Integer getCarId() {
-        return carId;
-    }
-
-    public void setCarId(Integer carId) {
-        this.carId = carId;
-    }
-
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public Payment.PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(Payment.PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setDriverLicense(String driverLicense) {
+        this.driverLicense = driverLicense;
     }
 
     public Date getPaymentDate() {
@@ -60,12 +36,12 @@ public class TransactionRequest {
         this.paymentDate = paymentDate;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Date getEndDate() {
@@ -76,11 +52,43 @@ public class TransactionRequest {
         this.endDate = endDate;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Payment.PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(Payment.PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Integer getCarId() {
+        return carId;
+    }
+
+    public void setCarId(Integer carId) {
+        this.carId = carId;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 }

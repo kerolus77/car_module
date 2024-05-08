@@ -25,7 +25,9 @@
     
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -38,10 +40,14 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a class="nav-link" id="HOME_Home">Home</a></li>
 	          <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li> 
 	          <li class="nav-item"><a href="car.html" class="nav-link">Cars</a></li>
-            <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+ <li class="nav-item">
+              <a  class="nav-link" id="user-name"></a>
+
+          </li>
+          <li class="nav-item"><a href="#"  class="nav-link" id="logout">Log Out</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -51,17 +57,23 @@
     </div>
 <div class="register-container">
     <h1 style="color: white;">Register</h1>
-    <form action="" method="POST">
-        <div class="form-group">
+    <form id="register-form">
+              <div class="form-group">
             <label for="username">Username:</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="username" name="username" required>
 
         </div>
+
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
   
         </div>
+        <div class="form-group">
+          <label for="PhoneNumber">PhoneNumber:</label>
+          <input type="text" id="phone" name="phone" required>
+
+      </div>
         <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
@@ -71,8 +83,8 @@
             <label for="password_confirmation">Confirm Password:</label>
             <input type="password" id="password_confirmation" name="password_confirmation" required>
         </div>
-        <button type="submit">Register</button>
-    </form>
+        <button type="button" id="register-btn">Register</button>
+      </form>
 
 
     <p>Already have an account? <a href="login.html">Login here</a></p>
@@ -144,7 +156,88 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+<script src="./js/auth.js"></script>
+<script defer>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Function to handle form submission
+      function registerUser() {
+          // Get the form element
+          var form = document.getElementById('register-form');
+          // Create a FormData object to collect form data
+          var formData = new FormData(form);
 
+          // Create a new XMLHttpRequest object for making AJAX requests
+          var xhr = new XMLHttpRequest();
+          // Configure the request: method (POST), URL, and asynchronous flag
+          xhr.open('POST', 'http://localhost:8084/api/users/register', true);
+          // Set the request header to specify that JSON data will be sent
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          // Define a function to handle the response when it's received
+          xhr.onreadystatechange = function () {
+              // Check if the request is complete
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                  // Check the response status
+                  if (xhr.status === 200) {
+                      // If the response status is 200 (OK), show a success message
+                      showAlert('User registered successfully!', true);
+                      // Redirect to login.html after a short delay (e.g., 2 seconds)
+                      setTimeout(function () {
+                          window.location.href = 'login.html';
+                      }, 500);
+                  } else {
+                      // If the response status is not 200, show an error message
+                      var responseText = xhr.responseText;
+                      try {
+                          // Try to parse the response as JSON
+                          var response = JSON.parse(responseText);
+                          // If successful, show the error message from the response
+                          showAlert( response.message, false);
+                      } catch (e) {
+                          // If parsing fails, show the raw response text as an error message
+                          showAlert( responseText, false);
+                      }
+                  }
+              }
+          };
+          // Convert the form data to a JSON object
+          var jsonFormData = {};
+          formData.forEach(function (value, key) {
+              jsonFormData[key] = value;
+          });
+          // Send the JSON data as the request body
+          xhr.send(JSON.stringify(jsonFormData));
+      }
+
+      // Function to show an alert with custom styling
+      function showAlert(message, isSuccess) {
+          var alertBox = document.createElement('div');
+          alertBox.textContent = message;
+          alertBox.style.padding = '10px';
+          alertBox.style.margin = '10px';
+          alertBox.style.borderRadius = '5px';
+          alertBox.style.color = isSuccess ? 'green' : 'red';
+          alertBox.style.backgroundColor = isSuccess ? '#d4edda' : '#f8d7da';
+          alertBox.style.border = isSuccess ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+          alertBox.style.width = 'fit-content';
+          alertBox.style.position = 'fixed';
+          alertBox.style.top = '20px';
+          alertBox.style.left = '50%';
+          alertBox.style.transform = 'translateX(-50%)';
+          alertBox.style.zIndex = '9999';
+          document.body.appendChild(alertBox);
+          // Remove the alert after 5 seconds
+          setTimeout(function () {
+              alertBox.remove();
+          }, 5000);
+      }
+
+      // Add a click event listener to the register button
+      document.getElementById('register-btn').addEventListener('click', function () {
+          // Call the registerUser function
+          registerUser();
+      });
+  });
+</script>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>

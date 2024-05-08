@@ -23,18 +23,7 @@ public class AdminService {
         this.userRepository = userRepository;
     }
 
-    public void activateUser(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setLocked(false);
-        userRepository.save(user);
-    }
-    public void deactivateUser(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setLocked(true);
-        userRepository.save(user);
-    }
+
 
     public void createAdmin(User user) {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -48,7 +37,6 @@ public class AdminService {
         }
 
         user.setUserRole(User.UserRole.ADMIN);
-        user.setLocked(false);
 
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);

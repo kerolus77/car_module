@@ -1,9 +1,28 @@
 package com.example.car_module.car;
 import com.example.car_module.brand.BrandEntity;
 import jakarta.persistence.*;
+
+import java.awt.*;
+
 @Table(name = "rent_car")
 @Entity
-public class RentCarEntity extends CarEntity {
+public class RentCarEntity  {
+    @Id
+    @SequenceGenerator(
+            name = "RentCar_sequence",
+            sequenceName = "RentCar_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "RentCar_sequence"
+    )
+    private Long id;
+    private TextArea carImage;
+    private String model;
+    private String licensePlate;
+    private int year;
+    private String description;
 
     public enum Status {
         RENTED,
@@ -13,19 +32,60 @@ public class RentCarEntity extends CarEntity {
     @Column(name = "status", nullable = false)
     private Status status = Status.AVAILABLE;
     private Double rentPrice;
+    @ManyToOne
+    @JoinColumn(name = "brand_id", nullable = false)
+    private BrandEntity brand;
 
-    public RentCarEntity(String image, String model, String licensePlate, int year, String description, BrandEntity brand, Status status, Double rentPrice) {
-        super(image, model, licensePlate, year, description, brand);
+    public RentCarEntity( String licensePlate, BrandEntity brand, Double rentPrice, int year, String description, Status status, String model,TextArea carImage) {
+        this.licensePlate = licensePlate;
+        this.brand = brand;
+        this.rentPrice = rentPrice;
+        this.year = year;
+        this.description = description;
         this.status = status;
-        this.rentPrice = rentPrice;
+        this.model = model;
+        this.carImage = carImage;
     }
 
-    public Double getRentPrice() {
-        return rentPrice;
+    public Long getId() {
+        return id;
     }
 
-    public void setRentPrice(Double rentPrice) {
-        this.rentPrice = rentPrice;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Status getStatus() {
@@ -34,5 +94,13 @@ public class RentCarEntity extends CarEntity {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Double getRentPrice() {
+        return rentPrice;
+    }
+
+    public void setRentPrice(Double rentPrice) {
+        this.rentPrice = rentPrice;
     }
 }

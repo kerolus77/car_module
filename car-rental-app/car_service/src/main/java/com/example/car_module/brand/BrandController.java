@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/brand")
+@CrossOrigin(origins = "*")
 public class BrandController {
 
     private final BrandService service;
@@ -24,7 +25,7 @@ public class BrandController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/getBrands")
     public ResponseEntity<List<BrandEntity>> getAllBrands() {
         return new ResponseEntity<>(service.getAllBrands(), HttpStatus.OK);
     }

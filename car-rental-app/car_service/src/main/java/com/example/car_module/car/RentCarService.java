@@ -29,17 +29,17 @@ public class RentCarService {
         BrandEntity brand = brandRepository.findById(request.getBrandId()).orElseThrow(() -> new RuntimeException("Brand not found"));
 
         RentCarEntity rentCar = new RentCarEntity(
-                request.getImage(),
-                request.getModel(),
                 request.getLicensePlate(),
+                brand,
+                request.getRentPrice(),
                 request.getYear(),
                 request.getDescription(),
-                brand,
                 request.getStatus(),
-                request.getRentPrice()
+                request.getModel(),
+                request.getCarImage()
 
         );
-
+        rentCar.setStatus(RentCarEntity.Status.AVAILABLE);
         return repository.save(rentCar);
     }
 

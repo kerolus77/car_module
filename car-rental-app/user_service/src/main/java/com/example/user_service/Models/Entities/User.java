@@ -26,12 +26,6 @@ public  class User  {
     @NotBlank(message = "Password is required")
     private String password;
 
-    @NotBlank(message = "Gender is required")
-    private String gender;
-
-    @NotNull(message = "Date of birth is required")
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
 
 
     public enum UserRole {
@@ -43,29 +37,15 @@ public  class User  {
     @Enumerated(EnumType.STRING)
     private UserRole userRole= UserRole.CLIENT;
 
-    private Boolean locked ;
-
-    private String personalPhoto;
-
-    private String idPhotoFront;
-
-    private String idPhotoBack;
-
-    public User() {
+    public User(UserRole userRole, String password, String phone, String email, String username) {
+        this.userRole = userRole;
+        this.password = password;
+        this.phone = phone;
+        this.email = email;
+        this.username = username;
     }
 
-    public User(String username, String email, String phone, String password, String gender, Date dateOfBirth, UserRole userRole, Boolean locked, String personalPhoto, String idPhotoFront, String idPhotoBack) {
-        this.username = username;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-        this.userRole = userRole;
-        this.locked = locked;
-        this.personalPhoto = personalPhoto;
-        this.idPhotoFront = idPhotoFront;
-        this.idPhotoBack = idPhotoBack;
+    public User() {
     }
 
     public Long getId() {
@@ -108,59 +88,11 @@ public  class User  {
         this.password = password;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public UserRole getUserRole() {
         return userRole;
     }
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
-    }
-
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public void setLocked(Boolean locked) {
-        this.locked = locked;
-    }
-
-    public String getPersonalPhoto() {
-        return personalPhoto;
-    }
-
-    public void setPersonalPhoto(String personalPhoto) {
-        this.personalPhoto = personalPhoto;
-    }
-
-    public String getIdPhotoFront() {
-        return idPhotoFront;
-    }
-
-    public void setIdPhotoFront(String idPhotoFront) {
-        this.idPhotoFront = idPhotoFront;
-    }
-
-    public String getIdPhotoBack() {
-        return idPhotoBack;
-    }
-
-    public void setIdPhotoBack(String idPhotoBack) {
-        this.idPhotoBack = idPhotoBack;
     }
 }

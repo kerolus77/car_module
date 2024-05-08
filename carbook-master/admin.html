@@ -24,7 +24,8 @@
     
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     
@@ -37,10 +38,14 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item active"><a  class="nav-link" id="HOME_Home">Home</a></li>
 	          <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li> 
 	          <li class="nav-item"><a href="car.html" class="nav-link">Cars</a></li>
-            <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+ <li class="nav-item">
+              <a  class="nav-link" id="user-name"></a>
+
+          </li>
+          <li class="nav-item"><a href="#"  class="nav-link" id="logout">Log Out</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -51,9 +56,11 @@
                   <div class="bd-example bd-example-tabs">
                       <div class="d-flex justify-content-center">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-
                           <li class="nav-item">
-                            <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Add Cars</a>
+                            <a class="nav-link active" id="pills-brands-tab" data-toggle="pill" href="#pills-brands" role="tab" aria-controls="pills-brands" aria-expanded="true">Add Brands</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Add Cars</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Check Transactions</a>
@@ -63,48 +70,74 @@
                       </div>
 
                     <div class="tab-content" id="pills-tabContent">
-                      <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+                      <div class="tab-pane fade show active" id="pills-brands" role="tabpanel" aria-labelledby="pills-brands-tab">
                         <section class="ftco-section" style="margin-top: 50px;margin-bottom: 50px;">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8 ftco-animate">
-                                        <form action="#" method="POST" class="appointment-form">
-                                            <div class="form-group">
-                                                <label for="model">Model:</label>
-                                                <input type="text" id="model" name="model" class="form-control" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="price-per-day">Price per Day:</label>
-                                                <input type="number" id="price-per-day" name="price-per-day" class="form-control" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="description">Description:</label>
-                                                <input type="text" id="description" name="description" class="form-control" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="car-year">Car Year:</label>
-                                                <input type="number" id="car-year" name="car-year" class="form-control" min="1900" max="2024" required>
-                                            </div>
-                                            
-                                            <div class="form-group">
-                                                <label for="brand">Brand:</label>
-                                                <select id="brand" name="brand" class="form-control" required>
-                                                    <option value="" disabled selected>Select Brand</option>
-                                                    <option value="BMW">BMW</option>
-                                                    <option value="Toyota">Toyota</option>
-                                                    <option value="Honda">Honda</option>
-                                                    <!-- Add more options as needed -->
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="driver-license-image">License Number:</label>
-                                                <input type="text" id="driver-license-image" name="driver-license-image" class="form-control" required>
-                                            </div>
-                                           
-                                            <div class="form-group">
-                                                <button type="submit" class="btn" style="background-color: #01d28e;">Book Now</button>
-                                            </div>
-                                        </form>
+                                      <form id="add-brands-form" class="appointment-form">
+
+                                        <div class="form-group">
+                                            <label for="name">Brand:</label>
+                                            <input type="text" id="name" name="name" class="form-control"  required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="country">country:</label>
+                                            <input type="text" id="country" name="country" class="form-control"  required>
+
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <button type="submit" class="btn" style="background-color: #01d28e;">Add Brand</button>
+                                        </div>
+                                    </form>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                      </div>
+                      <div class="tab-pane fade" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+                        <section class="ftco-section" style="margin-top: 50px;margin-bottom: 50px;">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8 ftco-animate">
+                                      <form id="add-car-form" class="appointment-form" >
+                                        <div class="form-group">
+                                            <label for="model">Model:</label>
+                                            <input type="text" id="model" name="model" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rentPrice">Price per Day:</label>
+                                            <input type="number" id="rentPrice" name="rentPrice" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description:</label>
+                                            <input type="text" id="description" name="description" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="year">Car Year:</label>
+                                            <input type="number" id="year" name="year" class="form-control" min="1900" max="2024" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="brand">Brand:</label>
+                                            <select id="brand" name="brandId" class="form-control" required>
+                                                <!-- Options will be populated dynamically via JavaScript -->
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="licensePlate">License Number:</label>
+                                            <input type="text" id="license_plate" name="licensePlate" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="carImage">Image</label>
+                                          <input type="text" id="carImage" name="carImage" class="form-control" required>
+                                      </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn" style="background-color: #01d28e;">Add Car</button>
+                                        </div>
+                                    </form>
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -185,8 +218,126 @@
       
         <!-- loader -->
         <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+        <script src="./js/auth.js"></script>
+      <script defer>
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to fetch brands and populate select element
+    function fetchBrands() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:8086/brand/getBrands', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    // Check if response is successful and contains data
+                    if (response && response.length > 0) {
+                        // Get the select element by ID
+                        var selectElement = document.getElementById('brand');
+                        // Loop through the response data
+                        response.forEach(function (brand) {
+                            // Create an option element
+                            var option = document.createElement('option');
+                            // Set the text of the option to brand name
+                            option.text = brand.name;
+                            // Set the value of the option to brand id
+                            option.value = brand.id;
+                            // Append the option to the select element
+                            selectElement.appendChild(option);
+                        });
+                    } else {
+                        // Handle empty or invalid response
+                        console.error('Failed to fetch brands or empty response');
+                    }
+                } else {
+                    // Handle error response
+                    console.error('Error fetching brands. Status:', xhr.status);
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    // Call fetchBrands function when the DOM content is loaded
+    fetchBrands();
+    function showAlert(message, isError) {
+              var existingAlert = document.getElementById('login-alert');
+              if (existingAlert) {
+                  existingAlert.remove();
+              }
       
+              var alertBox = document.createElement('div');
+              alertBox.id = 'login-alert';
+              alertBox.textContent = message;
+              alertBox.className = 'alert';
+              alertBox.classList.add(isError ? 'alert-danger' : 'alert-success');
+              alertBox.style.position = 'fixed';
+              alertBox.style.top = '20px';
+              alertBox.style.left = '50%';
+              alertBox.style.transform = 'translateX(-50%)';
+              alertBox.style.zIndex = '9999';
+              document.body.appendChild(alertBox);
       
+              setTimeout(function () {
+                  alertBox.remove();
+              }, 5000);
+          }
+      
+    document.getElementById('add-car-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:8086/api/cars/addCar', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 201) {
+                    showAlert('Car added successfully', false);
+                    setTimeout(function() {
+
+                    window.location.href = 'admin.html';
+                  }, 500);
+
+                    // Optionally, you can redirect the user to another page after successful form submission
+                    // window.location.href = 'success.html';
+                } else {
+                    showAlert('Failed to add car: ' + xhr.responseText, true);
+                    console.log(xhr.responseText);
+
+                }
+            }
+        };
+        xhr.send(JSON.stringify(Object.fromEntries(formData)));
+    });
+        
+    document.getElementById('add-brands-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:8086/brand/addBrand', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 201) {
+                  showAlert('brand added successfully', false);
+                  setTimeout(function() {
+                    window.location.href = 'admin.html';
+                  }, 500);
+                    // Optionally, you can redirect the user to another page after successful form submission
+                    // window.location.href = 'success.html';
+                } else {
+                    showAlert('Failed to add brand: ' + xhr.responseText, true);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(Object.fromEntries(formData)));
+    });
+});
+
+      </script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>

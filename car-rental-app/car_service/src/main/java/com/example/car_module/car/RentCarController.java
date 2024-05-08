@@ -1,6 +1,9 @@
 package com.example.car_module.car;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
@@ -58,6 +62,8 @@ public class RentCarController {
             return new ResponseEntity<>("Failed to create rental car: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
     // @PutMapping("/{id}")
     // public ResponseEntity<RentCarEntity> updateRentCar(@PathVariable Long id, @RequestBody RentCarEntity rentCar) {

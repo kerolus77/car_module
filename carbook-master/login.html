@@ -25,7 +25,8 @@
     
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -38,10 +39,14 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a class="nav-link" id="HOME_Home">Home</a></li>
 	          <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li> 
 	          <li class="nav-item"><a href="car.html" class="nav-link">Cars</a></li>
-            <li class="nav-item active"><a href="login.html" class="nav-link">Login</a></li>
+ <li class="nav-item">
+              <a  class="nav-link" id="user-name"></a>
+
+          </li>
+          <li class="nav-item"><a href="#"  class="nav-link" id="logout">Log Out</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -51,7 +56,7 @@
     </div>
     <div class="login-container">
         <h1 style="color: white;">Welcome Back!</h1>
-        <form action="" method="POST">
+        <form id="login-form">
         
             <div class="form-group">
                 <label for="username">Email:</label>
@@ -133,8 +138,85 @@
   
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-  
-  
+    <script src="./js/auth.js"></script>
+    <script defer>
+
+      document.addEventListener('DOMContentLoaded', function () {
+          function loginUser() {
+              var form = document.getElementById('login-form');
+              var formData = new FormData(form);
+      
+              event.preventDefault();
+      
+              var xhr = new XMLHttpRequest();
+              xhr.open('POST', 'http://localhost:8084/api/users/login', true);
+              xhr.setRequestHeader('Content-Type', 'application/json');
+              xhr.onreadystatechange = function () {
+                  if (xhr.readyState === XMLHttpRequest.DONE) {
+                      if (xhr.status === 200) {
+                          var response = JSON.parse(xhr.responseText);
+                          if (response) {
+                            // Store user ID in sessionStorage
+                        sessionStorage.setItem('userID', response.id);
+                        sessionStorage.setItem('user', JSON.stringify(response));
+
+                            console.log('User ID:', response);
+                        showAlert('Logged in successfully', false);
+                        setTimeout(function() {
+                          if(response.userRole=="CLIENT"){
+                            window.location.href = 'index.html';}
+                            else{
+                              window.location.href = 'admin.html';
+                            }
+                        }, 1000); // Redirect after 1 second (1000 milliseconds)
+                    } else {
+                              showAlert('Invalid email or password!', true);
+                          }
+                      } else {
+                          showAlert('Error: Unable to login. Please try again later.', true);
+                      }
+                  }
+              };
+              if (!xhr.responseText.trim()) {
+    showAlert('Invalid email or password!', true);
+}
+              var jsonFormData = {};
+              formData.forEach(function (value, key) {
+                  jsonFormData[key] = value;
+              });
+              xhr.send(JSON.stringify(jsonFormData));
+          }
+      
+          function showAlert(message, isError) {
+              var existingAlert = document.getElementById('login-alert');
+              if (existingAlert) {
+                  existingAlert.remove();
+              }
+      
+              var alertBox = document.createElement('div');
+              alertBox.id = 'login-alert';
+              alertBox.textContent = message;
+              alertBox.className = 'alert';
+              alertBox.classList.add(isError ? 'alert-danger' : 'alert-success');
+              alertBox.style.position = 'fixed';
+              alertBox.style.top = '20px';
+              alertBox.style.left = '50%';
+              alertBox.style.transform = 'translateX(-50%)';
+              alertBox.style.zIndex = '9999';
+              document.body.appendChild(alertBox);
+      
+              setTimeout(function () {
+                  alertBox.remove();
+              }, 5000);
+          }
+      
+          document.getElementById('login-form').addEventListener('submit', function (event) {
+              loginUser();
+          });
+      });
+      </script>
+      
+      
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/popper.min.js"></script>

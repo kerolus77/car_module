@@ -80,12 +80,12 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public String register(@RequestBody User request) {
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
         try {
-            userService.register(request);
-            return "Registration successful";
+            userService.register(user);
+            return ResponseEntity.ok("User registered successfully!");
         } catch (Exception e) {
-            return "Registration failed: " + e.getMessage();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
