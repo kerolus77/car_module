@@ -45,6 +45,11 @@ public class TransactionService {
         transaction.setDriverLicense(transactionRequest.getDriverLicense());
         transaction.setDateTime(transactionRequest.getDateTime());
 
+        Double totalPrice = calculateRentalDuration(transaction) * transaction.getTotalPrice();
+
+        transaction.setTotalPrice(totalPrice);
+
+
         // Save the transaction entity using the repository
         transactionRepository.save(transaction);
         paymentService.createPayment(transactionRequest,transaction);
