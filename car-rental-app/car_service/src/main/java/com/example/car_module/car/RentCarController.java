@@ -26,9 +26,10 @@ public class RentCarController {
     }
 
     @GetMapping("/getAllCars")
-    public ResponseEntity<List<RentCarEntity>> getAllRentCars() {
-        return new ResponseEntity<>(service.getAllRentCars(), HttpStatus.OK);
+    public List<RentCarEntity> getAllRentCars() {
+        return service.getAllRentCars();
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<RentCarEntity> getRentCarById(@Valid @PathVariable Long id) {
